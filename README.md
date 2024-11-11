@@ -22,6 +22,4 @@ TodoList is a task management app that helps users organize and track daily task
 - Integrate task reminder feature
 - Develop an API for the application
 
-## Author
 
-Khanhlinh0209
