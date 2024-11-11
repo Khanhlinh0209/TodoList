@@ -12,11 +12,6 @@ TodoList is a task management app that helps users organize and track daily task
 - Manage tasks by day and week
 - User-friendly interface
 
-## Installation
-
-1. Clone the repo: git clone `https://github.com/Khanhlinh0209/TodoList.git`
-2. Install dependencies: `npm install`
-3. Run the application: `npm start`
 
 ## Technologies
 
