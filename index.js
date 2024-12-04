@@ -2,7 +2,7 @@ document.querySelector("form").addEventListener("submit", (event) => {
   event.preventDefault(); //chặn sự kiện reset trang của submit
   //Lấy giá trị từ ô input
   let name = document.querySelector("#name").value;
-  //tạo object item 
+  //tạo object item
   let item = {
     id: new Date().toISOString(), //lấy ngày tháng năm để làm id
     name: name.trim(),
@@ -14,7 +14,7 @@ document.querySelector("form").addEventListener("submit", (event) => {
 });
 
 const addItemToUI = (item) => {
-  const {name, id} = item;//distructuring same same [...item]
+  const { name, id } = item; //distructuring same same [...item]
   let newCard = document.createElement("div");
   newCard.className =
     "border rounded d-flex justify-content-between align-items-center p-2 mb-3";
@@ -31,12 +31,11 @@ const getList = () => {
 };
 //hàm sẽ lưu item vào localStorage
 const addItemToLS = (item) => {
-  let list = getList();//lấy danh sách từ localStorage, có thể là []
+  let list = getList(); //lấy danh sách từ localStorage, có thể là []
   //nhét item vào list
   list.push(item);
   //Lưu list lên lại localStorage
-  localStorage.setItem("list",JSON.stringify(list));
-
+  localStorage.setItem("list", JSON.stringify(list));
 };
 
 //hàm hiển thị các item trong list mỗi lần reset trang
@@ -45,43 +44,41 @@ const init = () => {
   list.forEach((item) => {
     addItemToUI(item);
   });
-}
+};
 init();
 
 //làm chức nắng xóa từng item
 document.querySelector(".list").addEventListener("click", (event) => {
-  if(event.target.classList.contains("button-remove")) {
+  if (event.target.classList.contains("button-remove")) {
     let nameItem = event.target.previousElementSibling.textContent;
     let isConfirmed = confirm(`Bạn có muốn xóa item: "${nameItem}" không?`);
-    if(isConfirmed) {
+    if (isConfirmed) {
       //xóa iu
       event.target.parentElement.remove();
       //xóa localStorage
       let idRemove = event.target.dataset.id;
       removeItemFromLS(idRemove);
     }
-  }  
+  }
 });
 
 //Hàm nhận vào id cần xóa thu được từ nút đã nhận, tìm và xóa
 
 const removeItemFromLS = (idRemove) => {
-  let list = getList();//lấy danh sách từ localStorage
+  let list = getList(); //lấy danh sách từ localStorage
   list = list.filter((item) => item.id != idRemove);
   //lưu lên lại
-  localStorage.setItem("list",JSON.stringify(list));
-
-}
+  localStorage.setItem("list", JSON.stringify(list));
+};
 
 //xóa hết
 document.querySelector("#btn-remove-all").addEventListener("click", () => {
   let isConfirmed = confirm("Bạn có muốn xóa tất cả item không?");
-  if(isConfirmed) {
+  if (isConfirmed) {
     document.querySelector(".list").innerHTML = "";
     localStorage.removeItem("list");
   }
-
-})
+});
 
 //chức năng lọc filter
 //(sài khi có sẳn danh sách lưu trữ rồi. Bình thường ko nên sài
@@ -89,21 +86,20 @@ document.querySelector("#btn-remove-all").addEventListener("click", () => {
 document.querySelector("#filter").addEventListener("keyup", (event) => {
   let inputValue = event.target.value;
   let list = getList();
-  list = list.filter((item) => 
-    item.name.includes(inputValue));
+  list = list.filter((item) => item.name.includes(inputValue));
   //xóa danh sách iu cũ
   document.querySelector(".list").innerHTML = "";
   //thêm danh sách ui cũ
   list.forEach((item) => {
     addItemToUI(item);
-  })
-})
+  });
+});
 
 //innerHTML: lấy những gì bên trong div bị điều khiển
-//không thể dom vật thể ảo khi tạo ở js 
+//không thể dom vật thể ảo khi tạo ở js
 
 //TẠI sao lại gọi hàm ở dùng 11 trc khi tạo hàm ở dùng 16 (trong khi đó là const )
 
 document.addEventListener("DOMContentLoaded", () => {
   init();
-})//khai báo kiểu này là khi script để lên đâu :)))
+}); //khai báo kiểu này là khi script để lên đâu :)))
